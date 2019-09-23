@@ -45,7 +45,7 @@ links: # Friendship links. Set with `name` and `link`
 - name: Github
   link: https://github.com
 
-since: 2019 # Start year, use a 4-digit number. If you don't set the start year, there won't be a "since xxxx" on the bottom of your site
+since: 2016 # Start year, use a 4-digit number. If you don't set the start year, there won't be a "since xxxx" on the bottom of your site
 footer_text: # Additional text in footer, such as the record information. Support `<a>` tag
 license: # License description of every article. Support `<a>` tag
 
