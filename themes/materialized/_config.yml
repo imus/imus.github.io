@@ -1,12 +1,14 @@
 theme_color: # Theme color. Please go to [Colors](https://www.mdui.org/docs/color)
   primary: indigo
-  accent: pink
+  accent: light-blue
 
 notice: # Notice or announcement. Support `<a>` tag
 
-favicon: /images/favicon.png # Favicon path
-banner: /images/banner.png # Sidebar background image path
-avatar: /images/avatar.png # Avatar image path
+# favicon: /images/favicon.png # Favicon path
+favicon: /images/soapui.png # Favicon path
+# banner: /images/banner.png # Sidebar background image path
+banner: /images/dolphins.jpg # Sidebar background image path
+avatar: /images/avata1.jpg # Avatar image path
 rss: /atom.xml # RSS link. `hexo-generator-feed` plugin is needed
 
 email: # Email address
@@ -17,7 +19,7 @@ sns: # SNS links
   weibo:
   instagram:
   tumblr:
-  github:
+  github: 
   linkedin:
   zhihu:
   douban:
@@ -43,7 +45,7 @@ pages: # Custom page links. Set with `name` and `link`
   link: /gallery
 links: # Friendship links. Set with `name` and `link`
 - name: Github
-  link: https://github.com
+  link: https://github.com/sunsonghao
 
 since: 2016 # Start year, use a 4-digit number. If you don't set the start year, there won't be a "since xxxx" on the bottom of your site
 footer_text: # Additional text in footer, such as the record information. Support `<a>` tag
@@ -55,7 +57,7 @@ gallery: # CDN links of `fancybox` plugin used on Gallery page
   jquery_js: https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js
   lazyload_js: https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js
 busuanzi: # Use `busuanzi` plugin to count website visits
-  site: false
+  site: true
   page: false
   busuanzi_js: http://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
 qrcode: # Qrcode for articles. if use `plugin`, `hexo-helper-qrcode` plugin is needed
