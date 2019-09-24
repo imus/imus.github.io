@@ -50,6 +50,8 @@ links: # Friendship links. Set with `name` and `link`
   link: https://www.discourse.org/
 - name: Valine
   link: https://valine.js.org/
+- name: LeanCloud
+  link: https://leancloud.cn/
 - name: Gravatar
   link: http://cn.gravatar.com/
 
@@ -65,7 +67,7 @@ gallery: # CDN links of `fancybox` plugin used on Gallery page
 busuanzi: # Use `busuanzi` plugin to count website visits
   site: true
   page: true
-  busuanzi_js: http://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
+  busuanzi_js: https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
 qrcode: # Qrcode for articles. if use `plugin`, `hexo-helper-qrcode` plugin is needed
   caption: Send to mobile phone
   use: plugin
