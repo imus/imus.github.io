@@ -5,7 +5,7 @@ theme_color: # Theme color. Please go to [Colors](https://www.mdui.org/docs/colo
 notice: # Notice or announcement. Support `<a>` tag
 
 # favicon: /images/favicon.png # Favicon path
-favicon: /images/soapui.png # Favicon path
+favicon: /images/comix.png # Favicon path
 # banner: /images/banner.png # Sidebar background image path
 banner: /images/dolphins.jpg # Sidebar background image path
 avatar: /images/avata1.jpg # Avatar image path
@@ -17,9 +17,9 @@ sns: # SNS links
   facebook:
   google_plus:
   weibo:
-  instagram:
+  instagram: https://www.instagram.com/sunsh0079/
   tumblr:
-  github: 
+  github: https://github.com/sunsonghao
   linkedin:
   zhihu:
   douban:
@@ -45,7 +45,13 @@ pages: # Custom page links. Set with `name` and `link`
   link: /gallery
 links: # Friendship links. Set with `name` and `link`
 - name: Github
-  link: https://github.com/sunsonghao
+  link: https://github.com
+- name: Discourse
+  link: https://www.discourse.org/
+- name: Valine
+  link: https://valine.js.org/
+- name: Gravatar
+  link: http://cn.gravatar.com/
 
 since: 2016 # Start year, use a 4-digit number. If you don't set the start year, there won't be a "since xxxx" on the bottom of your site
 footer_text: # Additional text in footer, such as the record information. Support `<a>` tag
@@ -58,7 +64,7 @@ gallery: # CDN links of `fancybox` plugin used on Gallery page
   lazyload_js: https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js
 busuanzi: # Use `busuanzi` plugin to count website visits
   site: true
-  page: false
+  page: true
   busuanzi_js: http://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
 qrcode: # Qrcode for articles. if use `plugin`, `hexo-helper-qrcode` plugin is needed
   caption: Send to mobile phone
@@ -69,19 +75,21 @@ search: # Search settings. if use `plugin`, `hexo-generator-search` plugin is ne
   path: /search.xml
   use: plugin
 comment: # Comment plugin settings. Set `use` with the plugin name such as `gitalk`
-  use: false
+  use: valine
   disqus_shortname:
   gitalk_client_id:
   gitalk_client_secret:
   gitalk_repo:
   gitalk_owner:
   livere_data_uid:
-  valine_leancloud_app_id:
-  valine_leancloud_app_key:
-  valine_placeholder:
-  valine_page_size:
-  valine_avatar:
-  valine_lang:
+  valine_leancloud_app_id: u51SQNQwAC4cvAhXNBM5gxhv-gzGzoHsz
+  valine_leancloud_app_key: gxsYYGrA0A4iEm7FQ0XQoxuT
+  valine_placeholder: ヾ(o◕∀◕)ﾉヾ来都来了唠两句再走呗···
+  valine_page_size: 10
+  valine_avatar: mp
+  valine_lang: zh-cn
+  valine_visitor: false # 本博客用的busuanzi,没有用这个
+  valine_IP: true
   valine_guest_info:
   valine_notify:
   valine_verify:

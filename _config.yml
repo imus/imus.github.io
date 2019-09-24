@@ -5,17 +5,17 @@
 # Site
 title: Mirror Lake
 subtitle: The Big Dream of a Small Programmers
-description: front end, sunsh, sunsonghao, web, notes, github, 
-keywords: web, front end, node, others
+description: sunsh's blog!  
+keywords: web, blog, front end, node, others
 author: sunsh
 language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://sunsonghao.github.io
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :year/:i_month/:day/:title/
 permalink_defaults:
 
 # Directory
@@ -58,6 +58,13 @@ default_category: uncategorized
 category_map:
 tag_map:
 
+# Generate categories from directory-tree
+# Dependencies: https://github.com/xu-song/hexo-auto-category
+# depth: the depth of directory-tree you want to generate, should > 0
+auto_category:
+ enable: false
+ depth: 
+
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
@@ -74,6 +81,17 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: materialized
+#RSS订阅
+plugin:
+- hexo-generator-feed
+#Feed Atom
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  content:
+  content_limit:
+  content_limit_delim: ' '
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

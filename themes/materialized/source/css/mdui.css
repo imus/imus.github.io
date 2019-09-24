@@ -10227,6 +10227,11 @@ select.mdui-select[multiple] option:last-child {
   margin-bottom: 4px;
   overflow: hidden;
 }
+.mdui-grid-tile:hover {
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2),
+  0 4px 5px 0 rgba(0, 0, 0, .14),
+  0 1px 10px 0 rgba(0, 0, 0, .12);
+}
 .mdui-grid-tile img {
   display: block;
   width: 100%;
@@ -10287,6 +10292,9 @@ select.mdui-select[multiple] option:last-child {
   line-height: 18px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.mdui-grid-tile-subtitle:hover {
+  cursor: pointer;
 }
 .mdui-grid-tile-subtitle .mdui-icon {
   margin-right: 8px;
