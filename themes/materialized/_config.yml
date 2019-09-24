@@ -92,6 +92,7 @@ comment: # Comment plugin settings. Set `use` with the plugin name such as `gita
   valine_lang: zh-cn
   valine_visitor: false # 本博客用的busuanzi,没有用这个
   valine_IP: true
+  valine_highlight: true
   valine_guest_info:
   valine_notify:
   valine_verify:

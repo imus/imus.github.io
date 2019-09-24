@@ -902,3 +902,8 @@ img.avatar-animation:hover {
     transition: none !important;
   }
 }
+
+.vcomment .vwrap:hover {
+  /* border-color: #3f51b5; */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
