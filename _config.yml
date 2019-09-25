@@ -62,8 +62,8 @@ tag_map:
 # Dependencies: https://github.com/xu-song/hexo-auto-category
 # depth: the depth of directory-tree you want to generate, should > 0
 auto_category:
- enable: false
- depth: 
+ enable: true
+ depth: 1
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
