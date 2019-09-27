@@ -100,3 +100,8 @@ deploy:
   repo: https://github.com/sunsonghao/sunsonghao.github.io.git
   branch: master
 
+# hexo-admin authentification
+admin:
+  username: sunsonghao
+  password_hash: $2a$10$ef5U19WP6dhrKKwZKmduw.h2cguPe7GLmw9tF0MK7cxTwnJ42p39K
+  secret: my super secret phrase
