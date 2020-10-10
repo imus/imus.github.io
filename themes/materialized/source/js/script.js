@@ -59,6 +59,12 @@ $$(function () {
     tab.handleUpdate();
   });
 });
+/* 切换主题 */
+$$(function() {
+  $$('#header .custom-theme').on('click', function(e) {
+    $$('html').toggleClass('dark');
+  });
+})
 
 /* Search */
 var searchFunc = function (path, search_id, content_id) {

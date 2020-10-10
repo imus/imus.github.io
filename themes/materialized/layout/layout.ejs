@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="<%= config.language %>">
 <%- partial('_partial/head') %>
-<body class="mdui-appbar-with-toolbar mdui-drawer-body-left mdui-theme-primary-<%= theme.theme_color.primary || 'indigo' %> mdui-theme-accent-<%= theme.theme_color.accent || 'pink' %>">
+<body class="mdui-appbar-with-toolbar 
+  mdui-theme-layout-auto
+  mdui-drawer-body-left 
+  mdui-theme-primary-<%= theme.theme_color.primary || 'indigo' %> 
+  mdui-theme-accent-<%= theme.theme_color.accent || 'pink' %>">
   <script>var a=localStorage.getItem("mdui-theme-layout-dark");if(a){document.getElementsByTagName("body")[0].className+=" mdui-theme-layout-dark"};</script>
   <%- partial('_partial/header', null, {cache: !config.relative_link}) %>
   <%- partial('_partial/sidebar', null, {cache: !config.relative_link}) %>
