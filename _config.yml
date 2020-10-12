@@ -35,7 +35,13 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+# 在md中通过‘标签插件’引入相对路径图片
+post_asset_folder: true
+marked:
+  gfm: true
+  prependRoot: true
+  postAsset: true
+  lazyload: true
 relative_link: false
 future: true
 highlight:
@@ -71,6 +77,7 @@ auto_category:
 ## http://momentjs.com/docs/#/displaying/format/
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
+updated_option: mtime
 
 # Pagination
 ## Set per_page to 0 to disable pagination
