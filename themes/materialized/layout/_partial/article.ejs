@@ -95,10 +95,10 @@
     </div>
     <footer class="mdui-card-actions">
       <% if (page.categories && page.categories.length) { %>
-        <%- list_categories(page.categories, {show_count: false, style: 'none', separator: '', class: 'mdui-ripple article_categories'}) %>
+        <%- list_categories(page.categories, {show_count: false, style: false, separator: '', class: 'mdui-ripple article_categories'}) %>
       <% } %>
       <% if (page.tags && page.tags.length) { %>
-        <%- list_tags(page.tags, {show_count: false, style: 'none', separator: '', class: 'mdui-ripple article_tags'}) %>
+        <%- list_tags(page.tags, {show_count: false, style: false, separator: '', class: 'mdui-ripple article_tags'}) %>
       <% } %>
     </footer>
     <% if (is_post() && page.donate !== false && theme.donate && theme.donate.length) { %>

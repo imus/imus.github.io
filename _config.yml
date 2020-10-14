@@ -70,7 +70,7 @@ tag_map:
 # depth: the depth of directory-tree you want to generate, should > 0
 auto_category:
  enable: true
- depth: 1
+ depth: 2
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
@@ -111,5 +111,5 @@ deploy:
 # hexo-admin authentification
 admin:
   username: sunsonghao
-  password_hash: $2a$10$ef5U19WP6dhrKKwZKmduw.h2cguPe7GLmw9tF0MK7cxTwnJ42p39K
+  password_hash: $2a$10$XBJNs.czb2RbHKa8sNt6qeV5ig8xrfzZiQ6.hkm9TjUo.Jt06Tnnq
   secret: my super secret phrase

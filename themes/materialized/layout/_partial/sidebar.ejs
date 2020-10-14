@@ -47,7 +47,7 @@
         <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
       </div>
       <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-        <% var categories = list_categories({style: 'none', separator: '', class: 'mdui-ripple sidebar_archives'}) %>
+        <% var categories = list_categories({style: false, separator: '', class: 'mdui-ripple sidebar_archives'}) %>
         <%- categories %>
         <% if (!categories) { %>
           <a href="javascript:;" class="mdui-list-item mdui-ripple mdui-p-l-2 mdui-text-color-theme" style="justify-content: center;"><%= __('no_category') %></a>
@@ -61,7 +61,7 @@
         <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
       </div>
       <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
-        <% var tags = list_tags({style: 'none', separator: '', class: 'mdui-ripple sidebar_archives'}) %>
+        <% var tags = list_tags({style: false, separator: '', class: 'mdui-ripple sidebar_archives'}) %>
         <%- tags %>
         <% if (!tags) { %>
           <a href="javascript:;" class="mdui-list-item mdui-ripple mdui-p-l-2 mdui-text-color-theme" style="justify-content: center;"><%= __('no_tag') %></a>
