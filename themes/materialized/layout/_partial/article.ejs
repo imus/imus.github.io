@@ -106,6 +106,17 @@
         <%- list_tags(page.tags, {show_count: false, style: false, separator: '', class: 'mdui-ripple article_tags'}) %>
       <% } %>
     </footer>
+    <!-- 目录 -->
+    <% if (toc(page.content)) { %>
+      <div id="doc-toc" class="mdui-panel" mdui-panel style="position: fixed; right: 0; top: 50%; transform: translateY(-50%); width: 200px; opacity: 0.85;">
+        <div class="mdui-panel-item mdui-panel-item-open">
+          <div class="mdui-panel-item-header">目录</div>
+          <div class="mdui-panel-item-body">
+            <%- toc(page.content, {list_number: false}) %>
+          </div>
+        </div>
+      </div>
+    <%}%>
     <% if (is_post() && page.donate !== false && theme.donate && theme.donate.length) { %>
       <div class="mdui-dialog" id="donate">
         <div class="mdui-tab mdui-tab-centered" mdui-tab>
