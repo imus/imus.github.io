@@ -46,6 +46,13 @@ body {
   }
 }
 
+/* 文章目录 */
+@media (max-width: 1024px) {
+  #doc-toc {
+    display: none;
+  }
+}
+
 #footer {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 auto;
