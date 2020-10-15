@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="renderer" content="webkit">
+
+  
+  <title>ElementUI-整体设计(1) | Mirror Lake</title>
+
+  <link rel="shortcut icon" href="/images/comix.png">
+  <link rel="alternate" href="/atom.xml" title="Mirror Lake" type="application/atom+xml">
+  <meta name="description" content="如何学习ElementUI源码：https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;60706223 （知乎）  整体设计2.13.2element-ui的开发考虑的需求如下： 功能： 组件，自定义主题，国际化 文档：官方文档和demo，低成本，多语。 使用方式： cdn、npm，支持按需引入。 工程化：开发、测试、构建、部署，CI。  需求实现：组件​        组件丰富，分为6大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElementUI-整体设计(1)">
+<meta property="og:url" content="http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/index.html">
+<meta property="og:site_name" content="Mirror Lake">
+<meta property="og:description" content="如何学习ElementUI源码：https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;60706223 （知乎）  整体设计2.13.2element-ui的开发考虑的需求如下： 功能： 组件，自定义主题，国际化 文档：官方文档和demo，低成本，多语。 使用方式： cdn、npm，支持按需引入。 工程化：开发、测试、构建、部署，CI。  需求实现：组件​        组件丰富，分为6大">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-15T07:26:10.000Z">
+<meta property="article:modified_time" content="2020-10-15T08:15:02.221Z">
+<meta property="article:author" content="sunsh">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="element-ui">
+<meta name="twitter:card" content="summary">
+
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="theme-color" content="#9C27B0">
+  <meta name="description" content="sunsh&#39;s blog!">
+  <meta name="keywords" content=",web,element-ui">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Mirror Lake">
+  <meta name="msapplication-starturl" content="http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/">
+  <meta name="msapplication-navbutton-color" content="#9C27B0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Mirror Lake">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="/images/comix.png">
+
+  
+    <meta property="article:published_time" content="Thu Oct 15 2020 15:26:10 GMT+0800">
+    <meta property="article:modified_time" content="Thu Oct 15 2020 16:15:02 GMT+0800">
+  
+
+  
+    <link rel="canonical" href="http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/">
+  
+
+  
+  
+
+  
+  
+  
+
+  
+<link rel="stylesheet" href="/css/mdui.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="mdui-appbar-with-toolbar 
+  mdui-theme-layout-auto
+  mdui-drawer-body-left 
+  mdui-theme-primary-indigo 
+  mdui-theme-accent-light-blue">
+  <script>var a=localStorage.getItem("mdui-theme-layout-dark");if(a){document.getElementsByTagName("body")[0].className+=" mdui-theme-layout-dark"};</script>
+  <header id="header" class="mdui-appbar mdui-appbar-fixed mdui-appbar-scroll-hide mdui-appbar-inset">
+  <div class="mdui-toolbar mdui-color-theme">
+    <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="mdui-icon material-icons">menu</i></a>
+    <a href="/" class="mdui-typo-headline">Mirror Lake</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <a href="javascript:void(0);" class="mdui-btn mdui-btn-icon custom-theme" mdui-tooltip="{content: '主题'}">
+      <i class="mdui-icon material-icons">&#xe3b7;</i>
+    </a>
+    <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: '搜索'}"><i class="mdui-icon material-icons">search</i></a>
+    <a href="/atom.xml" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: 'RSS'}"><i class="mdui-icon material-icons">rss_feed</i></a>
+  </div>
+</header>
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="Enter the key words">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+  <aside id="sidebar" class="mdui-drawer mdui-drawer-full-height">
+  <div class="mdui-grid-tile">
+    <img src="/images/dolphins.jpg" style="height: 160px;">
+    
+      <div class="avatar-animation-wrap">
+        <img src="/images/avata1.jpg" 
+          class="avatar-animation" 
+          style="width: 64px; height: 64px;">
+      </div>
+    
+    <div class="mdui-grid-tile-actions">
+      <div class="mdui-grid-tile-text">
+        <div class="mdui-grid-tile-title">sunsh</div>
+        <div class="mdui-grid-tile-subtitle" title="The Big Dream of a Small Programmers"><i class="mdui-icon material-icons">ac_unit</i>The Big Dream of a Small Programmers</div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="mdui-list" mdui-collapse="{accordion: true}">
+    <a href="/" class="mdui-list-item mdui-ripple">
+      <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">home</i>
+      <div class="mdui-list-item-content">主页</div>
+    </a>
+    <div class="mdui-collapse-item">
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-deep-orange">archive</i>
+        <div class="mdui-list-item-content">归档</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/archives/2020/10/">十月 2020<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2016/12/">十二月 2016<span class="mdui-ripple sidebar_archives-count">1</span></a>
+        
+      </div>
+    </div>
+    <div class="mdui-collapse-item">
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-green">view_day</i>
+        <div class="mdui-list-item-content">分类</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/categories/Note/">Note<span class="mdui-ripple sidebar_archives-count">2</span></a>
+        
+      </div>
+    </div>
+    <div class="mdui-collapse-item">
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-brown">bookmark</i>
+        <div class="mdui-list-item-content">标签</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/tags/element-ui/" rel="tag">element-ui<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/web/" rel="tag">web<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则<span class="mdui-ripple sidebar_archives-count">1</span></a>
+        
+      </div>
+    </div>
+    <a href="/about" class="mdui-list-item mdui-ripple">
+      <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-purple">person</i>
+      <div class="mdui-list-item-content">关于</div>
+    </a>
+  </div>
+
+  <div class="mdui-divider"></div>
+
+  <div class="mdui-list" mdui-collapse="{accordion: true}">
+    
+      <a href="/tags" class="mdui-list-item mdui-ripple">Tags</a>
+    
+      <a href="/gallery" class="mdui-list-item mdui-ripple">Gallery</a>
+    
+    <div class="mdui-collapse-item">
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <div class="mdui-list-item-content">友情链接</div>
+        <i class="mdui-list-item-icon mdui-icon material-icons">link</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+          <a href="https://github.com" target="_blank" class="mdui-list-item mdui-ripple mdui-p-l-2 mdui-text-color-theme-accent" style="justify-content: center;">Github</a>
+        
+          <a href="https://www.discourse.org/" target="_blank" class="mdui-list-item mdui-ripple mdui-p-l-2 mdui-text-color-theme-accent" style="justify-content: center;">Discourse</a>
+        
+          <a href="https://valine.js.org/" target="_blank" class="mdui-list-item mdui-ripple mdui-p-l-2 mdui-text-color-theme-accent" style="justify-content: center;">Valine</a>
+        
+          <a href="https://leancloud.cn/" target="_blank" class="mdui-list-item mdui-ripple mdui-p-l-2 mdui-text-color-theme-accent" style="justify-content: center;">LeanCloud</a>
+        
+          <a href="http://cn.gravatar.com/" target="_blank" class="mdui-list-item mdui-ripple mdui-p-l-2 mdui-text-color-theme-accent" style="justify-content: center;">Gravatar</a>
+        
+        
+      </div>
+    </div>
+  </div>
+</aside>
+  <main id="main" class="mdui-m-t-5 fadeIn animated">
+  
+<link rel="stylesheet" href="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
+  <article class="mdui-card mdui-m-b-5">
+    <header class="mdui-card-media">
+      <img src="/images/random/material-5.png" style="max-height: 240px;">
+      <div class="mdui-card-media-covered">
+        <div class="mdui-card-primary">
+          <div class="mdui-card-primary-title">ElementUI-整体设计(1)</div>
+          <div class="mdui-card-primary-subtitle">
+            <i class="iconfont">&#xe697;</i> 2020-10-15 / <i class="iconfont">&#xe601;</i> sunsh &nbsp;&nbsp; <span id="busuanzi_container_page_pv" style="display: none;"><i class="iconfont">&#xe7fd;</i> <span id="busuanzi_value_page_pv"></span></span>
+            
+            &nbsp;&nbsp;<span style="float:right;">更新日期：2020-10-15 16:15:02</span>
+            
+          </div>
+        </div>
+      </div>
+      <div class="mdui-card-menu">
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#qrcode', align: 'right'}"><i class="mdui-icon material-icons">devices</i></button>
+          <ul class="mdui-menu" id="qrcode">
+            
+              <li class="mdui-menu-item"><a class="mdui-text-center mdui-ripple">Send to mobile phone</a></li>
+            
+            <li class="mdui-menu-item" disabled>
+              
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAADjElEQVR42u3aS27jMBAFQN//0jPbAIGd97pJxwGKq8ARJLK0aPXn8c/6sh4IcODAgQMHDhw4cOD4YI5HvL5e//0Oz+72+srXO/n++7O7zc6CAwcOHDjucfwQioIDv/7l2VOKTY+IX58FBw4cOHDc5siDa379jCxB3Lw2HDhw4MDxORztkQ5sd8SEAwcOHDj+CkeSLOWFv/ZIeeESBw4cOHB8Akd7vGJoIEjw8ivzRtT1WikOHDhw4Dg60PCZf//afAcOHDhw4BitdgQhD67JKEPeEitOhAMHDhw4jnJsxt3a1lQ+mrD/CCgSPxw4cODAcYHjVLK0aT61wXg2oocDBw4cON7DsRkseB3GZv+dDUzk1+PAgQMHjnscbViapX/J4Wdlx3zPRdsJBw4cOHCsOZLHJIE5OUweaJP9tC+p6MLhwIEDB44Rx6aZ1Aa/WaJVHy9uROHAgQMHjtscbRKVX5MU6dpr8tfzAxAOHDhw4DjKkadVeWCejSYUoTEoZSasOHDgwIHjBsfs8XmQbkuBp4YVioIjDhw4cOC4xnF7mKDd6L4FtQq0OHDgwIHjAkcbaNvgnY9HtI2oYhQDBw4cOHAc5WhLge0ow6wQ2aZ5q08HHDhw4MBxgaNt4WxaQXlQnP1yINDiwIEDB45DOUuejM1SrBl3fodZCRIHDhw4cLyfYxPe2tGEWfFxk/jhwIEDB44bHMmm25GF/NhtArlJ2HDgwIEDx22OR7nahtOpNO9siwsHDhw4cNzjyNOwtrG0GaTLX9Ws0YUDBw4cOO5x5E2mswG1HaqYFRPrthMOHDhw4DjEsQ9aefjcHH5fZMSBAwcOHO/hyMca2oRtuMVyfGFTNMSBAwcOHGc52nGEJBC2pcDNcN6BYI8DBw4cOI5ytNudJWBtSym/f/uhgAMHDhw4bnPkYakNfslRZ0E6TxFx4MCBA8dvcbQQeQGxbXHNmlU5PQ4cOHDgeA/HpgiYtI42YTIBbelx4MCBA8c9jlNBazay0KZ5eRqZh3AcOHDgwHGDYzOssC8ptqlgVPLbBFocOHDgwHGIIw+ubUCdBcv2Du1HAw4cOHDg+ASOfOubxlK+wzylrFM4HDhw4MDxRo72kHnil/w354uaXjhw4MCB4xpH+4A8idoUFpPG1ewjAAcOHDhw3ONoj5SU8GblvPwF5GQ4cODAgeOdHBYOHDhw4MCBAwcOHDg+bP0H+20Q8VLO+MUAAAAASUVORK5CYII=">
+              
+            </li>
+          </ul>
+        
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
+          <ul class="mdui-menu" id="share_menu">
+            <li class="mdui-menu-item">
+              <a href="http://service.weibo.com/share/share.php?appkey=&title=ElementUI-整体设计(1)&url=http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/&pic=http://sunsonghao.github.io/images/comix.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到微博</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://twitter.com/intent/tweet?text=ElementUI-整体设计(1)&url=http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/&via=sunsh" target="_blank" class="mdui-ripple">分享到Twitter</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/" target="_blank" class="mdui-ripple">分享到Facebook</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://plus.google.com/share?url=http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/" target="_blank" class="mdui-ripple">分享到Google+</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/&title=ElementUI-整体设计(1)" target="_blank" class="mdui-ripple">分享到LinkedIn</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="http://connect.qq.com/widget/shareqq/index.html?site=Mirror Lake&title=ElementUI-整体设计(1)&summary=sunsh&#39;s blog!&pics=http://sunsonghao.github.io/images/comix.png&url=http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/" target="_blank" class="mdui-ripple">分享到QQ</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://telegram.me/share/url?url=http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/&text=ElementUI-整体设计(1)" target="_blank" class="mdui-ripple">分享到Telegram</a>
+            </li>
+          </ul>
+        
+      </div>
+    </header>
+    <div class="mdui-card-content mdui-typo">
+      <p>如何学习ElementUI源码：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/60706223">https://www.zhihu.com/question/60706223</a> （知乎）</p>
+<hr>
+<h3 id="整体设计2-13-2"><a href="#整体设计2-13-2" class="headerlink" title="整体设计2.13.2"></a>整体设计2.13.2</h3><h4 id="element-ui的开发考虑的需求如下："><a href="#element-ui的开发考虑的需求如下：" class="headerlink" title="element-ui的开发考虑的需求如下："></a>element-ui的开发考虑的需求如下：</h4><ol>
+<li>功能： 组件，自定义主题，国际化</li>
+<li>文档：官方文档和demo，低成本，多语。</li>
+<li>使用方式： cdn、npm，支持按需引入。</li>
+<li>工程化：开发、测试、构建、部署，CI。</li>
+</ol>
+<h4 id="需求实现："><a href="#需求实现：" class="headerlink" title="需求实现："></a>需求实现：</h4><h5 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h5><p>​        组件丰富，分为6大类： 基础、表单类、数据类、提示类、导航类和其他组件。</p>
+<p>​        目录：<code>/packages</code></p>
+<h5 id="自定义主题"><a href="#自定义主题" class="headerlink" title="自定义主题"></a>自定义主题</h5><p>​        支持在线主题编辑：</p>
+<p>​            思路：主题通过配置维护，修改后把新的配置交给server，server根据配置返回新的CSS（变量替换，编译），覆                        盖默认样式。？？？<u>具体如何实现，探索下</u></p>
+<p>​            在主题编辑页的网络面板中可以看到获取配置getVariable和更新配置updateVariable的请求，代码目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;examples&#x2F;components&#x2F;theme&#x2F;loader&#x2F;index.vue &#x2F;&#x2F; 监听事件，onAction更新主题，拿到配置applyStyle覆盖默认样式</span><br><span class="line">getVarible, 主题配置右侧面板数据</span><br><span class="line">localStorage也会保存一份用户修改的配置，可能会有多个主题</span><br><span class="line">\examples\components\theme-configurator\index.vue &#x2F;&#x2F; onAction, 触发ACTION_APPLY_THEME事件</span><br></pre></td></tr></table></figure>
+
+<p>​            </p>
+<p>​        目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;packages&#x2F;theme-chalk &#x2F;&#x2F;组件样式、公共样式</span><br><span class="line">&#x2F;packages&#x2F;theme-chalk&#x2F;src&#x2F;common&#x2F;var.scss &#x2F;&#x2F; 组件中引入的样式变量的定义</span><br></pre></td></tr></table></figure>
+
+<h5 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h5><p>​        element-ui未使用vue-i18n。</p>
+<p>​        国际化方案会用到语言包，目录：<code>element\src\locale\lang</code></p>
+<p>​        pagination组件中Jumper组件中t函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import Locale from &#39;element-ui&#x2F;src&#x2F;mixins&#x2F;locale&#39;; &#x2F;&#x2F; t函数定义位置，最终位置\src\locale\index.js</span><br><span class="line">mixin: [Locale],</span><br><span class="line"> render(h) &#123;</span><br><span class="line">        return (</span><br><span class="line">          &lt;span class&#x3D;&quot;el-pagination__jump&quot;&gt;</span><br><span class="line">            &#123; this.t(&#39;el.pagination.goto&#39;) &#125;</span><br><span class="line">          &lt;&#x2F;span&gt;</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">  语言包中配置：</span><br><span class="line">    pagination: &#123;</span><br><span class="line">      goto: &#39;前往&#39;,</span><br><span class="line">      pagesize: &#39;条&#x2F;页&#39;,</span><br><span class="line">      total: &#39;共 &#123;total&#125; 条&#39;,</span><br><span class="line">      pageClassifier: &#39;页&#39;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>​    ？？？<u>字符串格式化函数format</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* 使用语言包时，需要注册 *&#x2F;</span><br><span class="line">import lang from &#39;element-ui&#x2F;lib&#x2F;locale&#x2F;lang&#x2F;en&#39;</span><br><span class="line">import locale from &#39;element-ui&#x2F;lib&#x2F;locale&#39;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 设置语言</span><br><span class="line">locale.use(lang)</span><br></pre></td></tr></table></figure>
+
+<h5 id="文档（值得借鉴）"><a href="#文档（值得借鉴）" class="headerlink" title="文档（值得借鉴）"></a>文档（值得借鉴）</h5><p>​    目录： <code>element\examples\docs</code></p>
+<p>​    格式.md。</p>
+<p>​    route.config.js // 路由配置，加载md文档</p>
+<p>​        registerRoute函数（重点）</p>
+<p>​        addRoute中的loadDocs(lang, page.path) // 获取对应.md组件</p>
+<p>​    webpack.demo.js中module配置解析.md格式的文档：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">       test: &#x2F;\.md$&#x2F;,</span><br><span class="line">       use: [</span><br><span class="line">         &#123;</span><br><span class="line">           loader: &#39;vue-loader&#39;,</span><br><span class="line">           options: &#123;</span><br><span class="line">             compilerOptions: &#123;</span><br><span class="line">               preserveWhitespace: false</span><br><span class="line">             &#125;</span><br><span class="line">           &#125;</span><br><span class="line">         &#125;,</span><br><span class="line">         &#x2F;&#x2F; loader是从后往前执行的，使用md-loader处理.md文档转化为.vue格式字符串</span><br><span class="line">         &#123;</span><br><span class="line">           loader: path.resolve(__dirname, &#39;.&#x2F;md-loader&#x2F;index.js&#39;) &#x2F;&#x2F; build&#x2F;md-loader&#x2F;index.js</span><br><span class="line">         &#125;</span><br><span class="line">       ]</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    md-loader工作： ？？？<u>md-loader处理过程</u></p>
+<p>​        md.render(source)<code>对</code>md<code>文档解析，提取文档中</code>:::demo {content} :::<code>内容，分别生成一些 Vue 的模板字符串，然后再从这个模板字符串中循环查找</code><!--element-demo:` 和 `:element-demo--><code>包裹的内容，从中提取模板字符串到</code>output<code>中，提取 script 到</code>componenetsString<code>中，然后构造</code>pageScript</p>
+<h5 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h5><p>​    CDN： 打包一份CSS和JS,全量引入，体积大</p>
+<p>​    npm 全量：引入js,css</p>
+<p>​    npm按需引入: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &#123;Button&#125; from &#39;element-ui&#39;</span><br><span class="line">Vue.component(Button.name, Button)</span><br></pre></td></tr></table></figure>
+
+<p>​        为什么它可以按需引入？需要借助babel-plugin-component, 然后修改.babelrc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [[&quot;es2015&quot;, &#123; &quot;modules&quot;: false &#125;]],</span><br><span class="line">  &quot;plugins&quot;: [</span><br><span class="line">    [</span><br><span class="line">      &quot;component&quot;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;libraryName&quot;: &quot;element-ui&quot;,</span><br><span class="line">        &quot;styleLibraryName&quot;: &quot;theme-chalk&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        转化为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var button &#x3D; require(&#39;element-ui&#x2F;lib&#x2F;button&#39;)</span><br><span class="line">require(&#39;element-ui&#x2F;lib&#x2F;theme-chalk&#x2F;button.css&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>​    产生组件依赖并且同时按需引入的时候，代码会有冗余。于是，在build/config配置webpack的externals选项，防止将这些 import 的包打包到 bundle 中，并在运行时再去从外部获取这些扩展依赖。(js)。</p>
+<p>​    lib/table.js对 <code>CheckBox</code> 组件的依赖引入如下：<code>570 module.exports = require(&quot;element-ui/lib/checkbox&quot;);</code></p>
+<p>​    但是， css样式并未做冗余处理。</p>
+<p>​    要解决按需引入的 JS 和 CSS 的冗余问题并非难事，可以用后编译的思想，即依赖包提供源码，而编译交给应用处理，这样不仅不会有组件冗余代码，甚至连编译的冗余代码都不会有。参考滴滴cube-ui:（webpack 应用编译优化之路） <a target="_blank" rel="noopener" href="https://juejin.im/post/6844903502586593288">https://juejin.im/post/6844903502586593288</a></p>
+<h5 id="工程化"><a href="#工程化" class="headerlink" title="工程化"></a>工程化</h5><p>​    ESLint, webpack HotReload热重载, karma测试框架，Travis CI集成。</p>
+<h4 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h4><p>​    npm run dist， 输出lib目录</p>
+<p>​    ？？？ <u>dist整体流体需要详细分析下</u></p>
+<p>​    <code>build:file</code> 运行 <code>build</code> 目录下几个命令，包括对 <code>icon</code>、<code>entry</code>、<code>i18n</code>、<code>version</code> 等初始化（根据一些规则做文件的 IO）</p>
+<p>​    pub: 部署，通过运行一系列的 bash 脚本，实现了代码的提交、合并、版本管理、npm 发布、官网发布等，让整个发布流程自动化完成。</p>
+<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><p>​    build // 构建</p>
+<p>​    lib // dist构建输出的目录</p>
+<p>​    examples // demo源码，包括在线定制主题前端交互部分</p>
+<p>​        entry.js // demo入口</p>
+<p>​    packages  // 组件源码</p>
+<p>​        theme-chalk // 组件样式、公共样式（可独立发布）</p>
+<p>​            src/common/var.scss // 变量定义： 组件样式中的颜色、字体、线条等通过变量方式引入</p>
+<p>​    src // 组件依赖的一些公共模块</p>
+<p>​        local/lang // 国际化方案组件库语言包， 关键t函数</p>
+<p>​    test // 测试</p>
+<p>​    types // 组件类型ts</p>
+<p>​    FAQ.md</p>
+<p>​    ···</p>
+
+      <blockquote class="mdui-m-t-5">
+        
+        <strong>本文链接：</strong><a href="http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/">http://sunsonghao.github.io/2020/10/15/Note/ElementUI-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1(1)/</a>
+      </blockquote>
+      
+    </div>
+    <footer class="mdui-card-actions">
+      
+        <a class="mdui-ripple article_categories-link" href="/categories/Note/">Note</a>
+      
+      
+        <a class="mdui-ripple article_tags-link" href="/tags/element-ui/" rel="tag">element-ui</a><a class="mdui-ripple article_tags-link" href="/tags/web/" rel="tag">web</a>
+      
+    </footer>
+    
+  </article>
+  
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+  <script>$("#main article .mdui-card-content img.fancybox").on("click",function(e){$.fancybox.open({src:$(this).attr("src")});});</script>
+
+
+  <nav id="paginator">
+    
+    <div class="spacer"></div>
+    
+      <a rel="next" class="extend next" href="/2020/10/13/Note/regexp/">
+        下一篇&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-dense mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
+      </a>
+    
+  </nav>
+
+
+  <div id="comment" class="mdui-m-t-5">
+    <div class="vcomment"></div>
+<script src="//cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = ''.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  var notify = '' === 'true';
+  var verify = '' === 'true';
+  new Valine({
+    av: AV,
+    el: '.vcomment',
+    notify: notify,
+    verify: verify,
+    appId: "u51SQNQwAC4cvAhXNBM5gxhv-gzGzoHsz",
+    appKey: "gxsYYGrA0A4iEm7FQ0XQoxuT",
+    placeholder: "ヾ(o◕∀◕)ﾉヾ来都来了唠两句再走呗···",
+    pageSize: '10',
+    avatar: 'mp',
+    lang: 'zh-cn',
+    guest_info: guest_info,
+    visitor: 'false',
+    recordIP: 'true',
+    highlight: 'true'
+  });
+</script>
+  </div>
+
+
+</main>
+  <footer id="footer" class="mdui-m-t-5 mdui-p-y-3 mdui-color-theme">
+  <div class="mdui-p-y-0 mdui-text-center">
+    
+    
+    
+    
+    
+      <a href="https://www.instagram.com/sunsh0079/" target="_blank"><i class="mdui-p-a-1 mdui-icon iconfont mdui-text-color-theme-a100">&#xe75f;</i></a>
+    
+    
+    
+      <a href="https://github.com/sunsonghao" target="_blank"><i class="mdui-p-a-1 mdui-icon iconfont mdui-text-color-theme-a100">&#xe7ab;</i></a>
+    
+    
+    
+    
+    
+    
+  </div>
+  <div class="mdui-p-y-1 mdui-text-center">
+    Copyright &copy; 2016 - 2020 sunsh<br>
+    Powered by <a href="https://hexo.io/" target="_blank" class="mdui-text-color-theme-accent">Hexo</a>
+    <br>
+      <span id="busuanzi_container_site_pv" style="display: none;"><i class="iconfont">&#xe7fd;</i> <span id="busuanzi_value_site_pv"></span></span> &nbsp;&nbsp;
+      <span id="busuanzi_container_site_uv" style="display: none;"><i class="iconfont">&#xe601;</i> <span id="busuanzi_value_site_uv"></span></span>
+    
+  </div>
+</footer>
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">arrow_upward</i></button>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+<script src="/js/mdui.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
